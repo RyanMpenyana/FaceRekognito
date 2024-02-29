@@ -1,6 +1,6 @@
 import { Tilt } from "react-tilt";
 import "./Logo.css";
-import Brain from "../assets/brain.png";
+import Brain from "./brain.png";
 // const defaultOptions = {
 //   reverse: false, // reverse the tilt direction
 //   max: 35, // max tilt rotation (degrees)
