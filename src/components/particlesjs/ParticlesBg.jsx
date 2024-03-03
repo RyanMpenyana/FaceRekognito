@@ -25,7 +25,7 @@ const Backgroundd = () => {
   }, []);
 
   const particlesLoaded = (container) => {
-    console.log(container);
+    // console.log(container);
   };
 
   const options = useMemo(
@@ -43,7 +43,7 @@ const Backgroundd = () => {
             mode: "push",
           },
           onHover: {
-            enable: true,
+            enable: false,
             mode: "repulse",
           },
         },
@@ -52,8 +52,8 @@ const Backgroundd = () => {
             quantity: 4,
           },
           repulse: {
-            distance: 200,
-            duration: 0.4,
+            distance: 100,
+            duration: 0.6,
           },
         },
       },
@@ -69,26 +69,27 @@ const Backgroundd = () => {
           width: 1,
         },
         move: {
-          direction: "none",
+          direction: "up",
           enable: true,
           outModes: {
             default: "bounce",
           },
           random: false,
-          speed: 6,
+          speed: 1,
           straight: false,
         },
         number: {
           density: {
             enable: true,
+            area: 800,
           },
-          value: 80,
+          value: 380,
         },
         opacity: {
-          value: 0.0,
+          value: 0.3,
         },
         shape: {
-          type: "circle",
+          type: "square",
         },
         size: {
           value: { min: 1, max: 5 },
@@ -102,6 +103,7 @@ const Backgroundd = () => {
   if (init) {
     return (
       <Particles
+        className="particles"
         id="tsparticles"
         particlesLoaded={particlesLoaded}
         options={options}
