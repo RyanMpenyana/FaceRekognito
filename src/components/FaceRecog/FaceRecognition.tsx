@@ -1,15 +1,24 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState, useContext } from "react";
 import * as faceapi from "face-api.js";
+import { animated, useTransition } from "react-spring";
+import { ctx } from "../../App";
 import Image from "../../assets/profile.jpg";
 
-function App() {
+function FaceRecognition(props: any) {
+  const myContext = useContext(ctx);
+  const [isItem, setItem] = useState(true);
+  const transition = useTransition(isItem, {
+    from: { x: -800, y: 800, opacity: 0 },
+    enter: { x: 0, y: 0, opacity: 1 },
+    leave: { x: 800, y: 800, opacity: 0 },
+  });
   const imageRef = useRef<HTMLImageElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-
   // LOAD MODELS FROM USEEFFECT
   useEffect(() => {
     loadModels();
-  }, []);
+    setItem(myContext);
+  }, [props.imageUrl, isItem]);
 
   // LOAD MODELS FROM FACE API
   const loadModels = async () => {
@@ -51,22 +60,28 @@ function App() {
   return (
     <>
       <div className="myapp">
-        <h1>Face Detection</h1>
         <div className="appimage">
-          <img
-            src={`https://t3.ftcdn.net/jpg/03/19/10/82/360_F_319108213_MoLZZt5WTXq6NpdG1FbCbyCtDStlSVBf.jpg`}
-            ref={imageRef}
-            crossOrigin="anonymous"
-            alt="Face Detection"
-            width={400}
-            height={400}
-          />
+          {transition((style, item) => (
+            <animated.div style={style}>
+              {item ? (
+                <img
+                  src={props.imageUrl}
+                  ref={imageRef}
+                  crossOrigin="anonymous"
+                  alt="Face Detection"
+                  width={400}
+                  height={400}
+                />
+              ) : (
+                ""
+              )}
+            </animated.div>
+          ))}
+          <canvas ref={canvasRef} className="appcanvas" />
         </div>
-        <canvas ref={canvasRef} className="appcanvas" />
       </div>
-      ;
     </>
   );
 }
 
-export default App;
+export default FaceRecognition;

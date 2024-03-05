@@ -12,6 +12,7 @@ const ImageLinkForm = (props) => {
             onChange={props.onChange}
             className="f4 pa2 w-70 center "
             type="text"
+            value={props.value}
           />
           <button
             onClick={props.onSubmit}
