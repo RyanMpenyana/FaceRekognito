@@ -27,6 +27,8 @@ function FaceRecognition(props: any) {
       faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
       faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
       faceapi.nets.faceExpressionNet.loadFromUri("/models"),
+      faceapi.nets.ageGenderNet.loadFromUri("/models"),
+      faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
     ]);
 
     // Perform face detection once models are loaded
@@ -42,7 +44,9 @@ function FaceRecognition(props: any) {
       const detections = await faceapi
         .detectAllFaces(img, new faceapi.TinyFaceDetectorOptions())
         .withFaceLandmarks()
-        .withFaceExpressions();
+        .withFaceExpressions()
+        .withAgeAndGender()
+        .withFaceDescriptors();
 
       // Draw face detections on the canvas
       const displaySize = { width: img.width, height: img.height };
@@ -71,6 +75,12 @@ function FaceRecognition(props: any) {
                   alt="Face Detection"
                   width={400}
                   height={400}
+                  style={{
+                    borderRadius: "8px",
+                    boxShadow: "10px 10px 20px 8px #232139",
+                    marginTop: "25px",
+                    zIndex: 3,
+                  }}
                 />
               ) : (
                 ""

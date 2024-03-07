@@ -1,4 +1,25 @@
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 const SignIn = () => {
+  const [isMailValid, setMail] = useState<any>("");
+  const [isPassword, setIsPassword] = useState("");
+  const [isValid, setIsvalid] = useState(false);
+
+  useEffect(() => {
+    if (isMailValid.includes("@") && isPassword.toString().length === 8) {
+      setIsvalid(true);
+    } else {
+      setIsvalid(false);
+    }
+  }, [isMailValid, isPassword]);
+
+  const emailValidationHandler = (e: any) => {
+    setMail(e.target.value);
+  };
+  const passwordValidationHandler = (e: any) => {
+    setIsPassword(e.target.value);
+  };
+
   return (
     <>
       <article className="forms br3 ba dark-gray  b--black-10 mv4 w-100 w-50-m w-25-l shadow-5 mw5 center">
@@ -15,6 +36,7 @@ const SignIn = () => {
                   type="email"
                   name="email-address"
                   id="email-address"
+                  onChange={emailValidationHandler}
                 />
               </div>
               <div className="mv3">
@@ -26,15 +48,20 @@ const SignIn = () => {
                   type="password"
                   name="password"
                   id="password"
+                  onChange={passwordValidationHandler}
                 />
               </div>
             </fieldset>
             <div className="">
-              <input
-                className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
-                type="submit"
-                value="Sign in"
-              />
+              {isValid && (
+                <Link
+                  to={"/home"}
+                  className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib"
+                  type="submit"
+                >
+                  Register
+                </Link>
+              )}
             </div>
             <div className="lh-copy mt3">
               <a href="#0" className="f6 link dim black db">

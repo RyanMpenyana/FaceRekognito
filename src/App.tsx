@@ -3,7 +3,7 @@ import Logo from "./components/Logo/Logo";
 import ImageLinkForm from "./components/ImageLink/ImageLinkForm";
 import FaceRecognition from "./components/FaceRecog/FaceRecognition";
 import Ranking from "./components/Ranking/Ranking";
-import Backroundd from "./components/particlesjs/ParticlesBg";
+import Backgroundd from "./components/particlesjs/ParticlesBg";
 import { useState, createContext } from "react";
 import SignIn from "./components/sign-in/SignIn";
 
@@ -24,18 +24,14 @@ const App = (props) => {
     setImgUrl(inputState);
     console.log("clicked");
     console.log(bool);
-
-    // setTimeout(() => {
-    //   setInputState("");
-    // }, 500000);
+    setInputState("");
   };
 
   return (
     <>
       <ctx.Provider value={bool}>
+        <Backgroundd />
         <div className="App">
-          <SignIn />
-          <Backroundd />
           <Navigation />
           <Logo />
           <Ranking />
